@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE xml>
+<configuration scan="true" >
+<!--configuration scan="true" debug="true"-->
+<shutdownHook/>
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss} %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="ALL_LOGS_APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/ALLLogs.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>./logs/ALLLogs.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<maxFileSize>20MB</maxFileSize>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.apache.http.wire" level="OFF">
+		<appender-ref ref="ALL_LOGS_APPENDER" />
+	</logger>
+	
+	<logger name="org.apache.http.client" level="OFF">
+		<appender-ref ref="ALL_LOGS_APPENDER" />
+	</logger>
+
+	<logger name="org.apache.http" level="OFF">
+		<appender-ref ref="ALL_LOGS_APPENDER" />
+	</logger>
+
+	<logger name="net.htmlparser.jericho" level="OFF">
+		<appender-ref ref="ALL_LOGS_APPENDER" />
+	</logger>
+
+	<root level="OFF">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
